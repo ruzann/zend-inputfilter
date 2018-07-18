@@ -171,7 +171,7 @@ class CollectionInputFilterTest extends TestCase
             'Required: F, Count: N, Valid: T'  => [!$isRequired, null, $colRaw, $validIF  , $colRaw, $colFiltered, true , []],
             'Required: F, Count: N, Valid: F'  => [!$isRequired, null, $colRaw, $invalidIF, $colRaw, $colFiltered, false, $colMessages],
             'Required: F, Count: +1, Valid: F' => [!$isRequired,    2, $colRaw, $invalidIF, $colRaw, $colFiltered, false, $colMessages],
-            'Required: T, Data: [], Valid: X'  => [ $isRequired, null, []     , $noValidIF, []     , []          , false, []],
+            'Required: T, Data: [], Valid: X'  => [ $isRequired, null, []     , $noValidIF, []     , []          , false, [CollectionInputFilter::NOT_EMPTY]],
             'Required: F, Data: [], Valid: X'  => [!$isRequired, null, []     , $noValidIF, []     , []          , true , []],
         ];
         // @codingStandardsIgnoreEnd
