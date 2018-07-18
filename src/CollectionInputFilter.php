@@ -10,9 +10,12 @@
 namespace Zend\InputFilter;
 
 use Traversable;
+use Zend\Validator\NotEmpty;
 
 class CollectionInputFilter extends InputFilter
 {
+    const NOT_EMPTY = 'Value is required and can\'t be empty';
+    
     /**
      * @var bool
      */
@@ -42,6 +45,11 @@ class CollectionInputFilter extends InputFilter
      * @var BaseInputFilter
      */
     protected $inputFilter;
+
+    /**
+     * @var $messageRequired
+     */
+    protected $messageRequired;
 
     /**
      * Set the input filter to use when looping the data
@@ -165,6 +173,28 @@ class CollectionInputFilter extends InputFilter
     }
 
     /**
+     * Set "required"  message if collection can not be empty
+     *
+     * @param string $messageRequired
+     * @return CollectionInputFilter
+     */
+    public function setMessageRequired($messageRequired)
+    {
+        $this->messageRequired = $messageRequired;
+
+        return $this;
+    }
+
+    /**
+     *  Get "required"  message if collection can not be empty
+     *
+     * @return string
+     */
+    public function getMessageRequired()
+    {
+        return $this->messageRequired;
+    }
+    /**
      * {@inheritdoc}
      * @param mixed $context Ignored, but present to retain signature compatibility.
      */
@@ -176,6 +206,14 @@ class CollectionInputFilter extends InputFilter
 
         if ($this->getCount() < 1) {
             if ($this->isRequired) {
+
+                if($this->messageRequired == null)
+                {
+                    $this->messageRequired = self::NOT_EMPTY;
+                }
+
+                $this->collectionMessages[] = $this->messageRequired;
+
                 $valid = false;
             }
         }
