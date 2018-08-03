@@ -942,7 +942,7 @@ class InputTest extends TestCase
     protected function getDummyValue($raw = true)
     {
         if ($raw) {
-            return 'foo1';
+            return 'foo';
         } else {
             return 'filtered';
         }
